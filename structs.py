@@ -2,14 +2,19 @@ class ActionTypes():
     DefaultAction, MoveAction, AttackAction, CollectAction,
         UpgradeAction, StealAction, PurchaseAction = range(7)
 
+
 class UpgradeType():
     CarryingCapacity, AttackPower, Defence, MaximumHealth,
         CollectingSpeed = range(5)
+
+
 class TileType():
     Tile, Wall, House, Lava, Resource, Shop = range(6)
 
+
 class TileContent():
     Empty, Resource, House, Player, Wall, Lava, Shop = range(7)
+
 
 class Point(object):
 
@@ -34,6 +39,7 @@ class Point(object):
         delta_y = p1.Y - p2.Y
         return math.sqrt(math.pow(delta_x, 2) + math.pow(delta_y, 2))
 
+
 class GameInfo(object):
 
     def __init__(self, json_dict):
@@ -42,12 +48,14 @@ class GameInfo(object):
         self.Map = Tile(json_dict["Map"])
         self.Players = dict()
 
+
 class Tile(object):
 
     def __init__(self, content, x, y):
         self.Content = content
         self.X = x
         self.Y = y
+
 
 class PlayerInfo(object):
 
@@ -59,3 +67,10 @@ class PlayerInfo(object):
         self.CarriedRessources = carriedRessources
         self.CarryingCapacity = carryingCapacity
 
+
+class Player(object):
+
+    def __init__(self, health, maxHealth, position):
+        self.Health = health
+        self.MaxHealth = maxHealth
+        self.Position = position
