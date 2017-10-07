@@ -34,11 +34,11 @@ def deserialize_map(serialized_map):
     serialized_map = serialized_map[1:]
     rows = serialized_map.split('[')
     column = rows[0].split('{')
-    deserialized_map = [[Tile() for x in range(20)] for y in range(20)]
-    for i in range(len(rows)):
+    deserialized_map = [[Tile() for x in range(40)] for y in range(40)]
+    for i in range(len(rows) - 1):
         column = rows[i + 1].split('{')
 
-        for j in range(len(column)):
+        for j in range(len(column) - 1):
             infos = column[j + 1].split(',')
             end_index = infos[2].find('}')
             content = int(infos[0])
@@ -53,17 +53,19 @@ def bot():
     Main de votre bot.
     """
     map_json = request.form["map"]
-    map_json = json.loads(map_json)
 
     # Player info
-    p = json.loads(map_json["Player"])
+
+    encoded_map = map_json.encode()
+    map_json = json.loads(encoded_map)
+    p = map_json["Player"]
     pos = p["Position"]
     x = pos["X"]
     y = pos["Y"]
     house = p["HouseLocation"]
     player = Player(p["Health"], p["MaxHealth"], Point(x,y),
                     Point(house["X"], house["Y"]),
-                    p["CarriedRessources"], p["CarryingCapacity"])
+                    p["CarriedResources"], p["CarryingCapacity"])
 
     # Map
     serialized_map = map_json["CustomSerializedMap"]
