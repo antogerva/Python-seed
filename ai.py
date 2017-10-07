@@ -11,6 +11,21 @@ def create_action(action_type, target):
 def create_move_action(target):
     return create_action("MoveAction", target)
 
+def create_attack_action(target):
+    return create_action("AttackAction", target)
+
+def create_collect_action(target):
+    return create_action("CollectAction", target)
+
+def create_steal_action(target):
+    return create_action("StealAction", target)
+
+def create_heal_action():
+    return create_action("HealAction", "")
+
+def create_purchase_action(item):
+    return create_action("PurchaseAction", item)
+
 def deserialize_map(serialized_map):
     """
     Fonction utilitaire pour comprendre la map
@@ -25,7 +40,9 @@ def deserialize_map(serialized_map):
 
         for j in range(len(column)):
             infos = column[j + 1].split(',')
-            deserialized_map[i] = Tile(int(infos[0]), int(infos[1]), int(infos[2][:infos[2].find('}')]))
+            deserialized_map[i] = Tile(int(infos[0]),
+                                       int(infos[1]),
+                                       int(infos[2][:infos[2].find('}')]))
 
     return deserialized_map
 
@@ -45,7 +62,6 @@ def reponse():
     """
     Point d'entree appelle par le GameServer
     """
-    print "RECEIVED"
     return bot()
 
 if __name__ == "__main__":
