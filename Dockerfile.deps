@@ -4,4 +4,4 @@ ADD . .
 
 RUN apt-get update -y
 RUN apt-get install python python-pip -y
-RUN pip install Flask
+RUN pip install Flask tensorflow numba keras
