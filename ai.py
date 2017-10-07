@@ -54,9 +54,34 @@ def bot():
     """
     map_json = request.form["map"]
     map_json = json.loads(map_json)
-    serialized_map = data["CustomSerializedMap"]
+
+    # Player info
+    p = json.loads(map_json["Player"])
+    pos = p["Position"]
+    x = pos["X"]
+    y = pos["Y"]
+    house = p["HouseLocation"]
+    player = Player(p["Health"], p["MaxHealth"], Point(x,y),
+                    Point(house["X"], house["Y"]),
+                    p["CarriedRessources"], p["CarryingCapacity"])
+
+    # Map
+    serialized_map = map_json["CustomSerializedMap"]
     deserialized_map = deserialize_map(serialized_map)
 
+    otherPlayers = []
+
+    for player_dict in map_json["OtherPlayers"]:
+        for player_name in player_dict.keys():
+            player_info = player_dict[player_name]
+            p_pos = player_info["Position"]
+            player_info = PlayerInfo(player_info["Health"],
+                                     player_info["MaxHealth"],
+                                     Point(p_pos["X"], p_pos["Y"]))
+
+            otherPlayers.append({player_name: player_info })
+
+    # return decision
     return create_move_action(Point(0,1))
 
 @app.route("/", methods=["POST"])

@@ -57,18 +57,20 @@ class Tile(object):
         self.Y = y
 
 
-class PlayerInfo(object):
+class Player(object):
 
-    def __init__(self, health, position, houseLocation, carriedRessources,
+    def __init__(self, health, maxHealth, position, houseLocation, score, carriedRessources,
                  carryingCapacity=1000):
         self.Health = health
+        self.MaxHealth = maxHealth
         self.Position = position
         self.HouseLocation = houseLocation
+        self.Score = score
         self.CarriedRessources = carriedRessources
         self.CarryingCapacity = carryingCapacity
 
 
-class Player(object):
+class PlayerInfo(object):
 
     def __init__(self, health, maxHealth, position):
         self.Health = health
